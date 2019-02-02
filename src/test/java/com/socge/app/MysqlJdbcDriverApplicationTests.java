@@ -1,4 +1,4 @@
-package com.michaelcgood.app;
+package com.socge.app;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

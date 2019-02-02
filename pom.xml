@@ -4,13 +4,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.michaelcgood</groupId>
-	<artifactId>mysql-jdbc</artifactId>
+	<groupId>com.socge</groupId>
+	<artifactId>cockpitSimplified</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>mysql-jdbc-driver</name>
-	<description>mysql jdbc driver example</description>
+	<name>ilc-camt-archivage</name>
+	<description>from-jar-to-entity</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -44,6 +44,20 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.22</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
