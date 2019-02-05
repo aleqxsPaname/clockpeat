@@ -1,11 +1,12 @@
 package com.socge.dao;
 
+import com.socge.model.Camt053;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import com.socge.model.SystemExample;
 
 @Repository
-public interface SystemRepository extends CrudRepository<SystemExample,Long> {
-	
+public interface Camt053Repository extends CrudRepository<Camt053,Long> {
+
 
 }
+

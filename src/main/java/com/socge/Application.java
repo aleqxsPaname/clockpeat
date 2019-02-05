@@ -1,22 +1,28 @@
 package com.socge;
 
+import com.google.gson.Gson;
+import com.socge.core.service.ArchivageCamt053;
+import com.socge.dao.MessageRepository;
+import com.socge.model.Camt053;
+import com.socge.model.Message;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.socge.dao.SystemRepository;
-import com.socge.model.SystemExample;
+import java.util.List;
 
 @SpringBootApplication
 //@EnableJpaRepositories("com.socge.dao") // utile uniquement si le repo et l'entity sont dans un autre package
 public class Application implements CommandLineRunner {
 
-	/*@Autowired
-	DataSource dataSource;*/
 
 	@Autowired
-	SystemRepository systemRepository;
+	ArchivageCamt053 archivageCamt053;
+
+	@Autowired
+	MessageRepository messageRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -25,28 +31,31 @@ public class Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// add windows server
-		SystemExample systemExampleWindows = new SystemExample();
-		systemExampleWindows.setName("Alexis Exemple");
-		systemExampleWindows.setLastaudit("2017-08-11");
-		systemRepository.save(systemExampleWindows);
-		// add rhel
-		SystemExample systemExampleRhel = new SystemExample();
-		systemExampleRhel.setName("Alexis Exemple");
-		systemExampleRhel.setLastaudit("2017-07-21");
-		systemRepository.save(systemExampleRhel);
-		// add solaris
-		SystemExample systemExampleSolaris = new SystemExample();
-		systemExampleSolaris.setName("Alexis Exemple");
-		systemExampleSolaris.setLastaudit("2017-08-13");
-		systemRepository.save(systemExampleSolaris);
 
+		List<Camt053> camt053List = archivageCamt053.creationDuneListAleatoireDeCamt053();
 
-		Iterable<SystemExample> systemlist = systemRepository.findAll();
-		System.out.println("here are system count: " + systemlist.toString());
-		for(SystemExample systemExample:systemlist){
-			System.out.println("Here is a system: " + systemExample.toString());
+		for(Camt053 camt053:camt053List){
+			System.out.println(camt053);
 		}
+
+		String listCamt053Json = new Gson().toJson(camt053List);
+
+		System.out.println("ListCamt053Json= " + listCamt053Json);
+
+		Message message = new Message();
+		message.setMessage(listCamt053Json);
+		message.setQueue("queueFromSecurity");
+		messageRepository.save(message);
+
+		System.out.println("--------------------------");
+		System.out.println("RECUPERATION DEPUIS LA BDD");
+		Iterable<Message> messageIterable = messageRepository.findAll();
+		int i = 0;
+		for(Message m:messageIterable){
+			i++;
+			System.out.println("Message_" + i + " = " + m.getMessage());
+		}
+
 
 	}
 
